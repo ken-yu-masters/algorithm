@@ -1,13 +1,16 @@
 #!/bin/csh
 set projectName = "1.twoSum"
 set sourceFileName = "main.cpp 1.twoSum.cpp"
-set gccBasePath = '/grid/common/pkgsData/gcc-v4.8.3p2/Linux/RHEL5.0-2010-x86_64'
-set options = "${options} QMAKE_CXX=${gccBasePath}/bin/g++"
+set options = ""
+set gccBasePath = '/grid/common/pkgsData/gcc-v6.3.0/Linux/RHEL6.0-2016-x86_64/'
+set options = "QMAKE_CXX=${gccBasePath}/bin/g++"
 set options = "${options} LINK=$gccBasePath/bin/g++"
 set options = "${options} QMAKE_CC=$gccBasePath/bin/gcc"
 set options = "${options} QMAKE_LINK_C=$gccBasePath/bin/gcc"
 set options = "${options} QMAKE_RPATHDIR+=$gccBasePath/lib64"
-set options = "${options} CONFIG+=console"
+#set options = "${options} CONFIG+=console"
+#set options = "${options} QMAKE_CXXFLAGS+=-std=c++11"
+set options = "${options} CONFIG+=c++11"
 echo "$options"
 
 #1: generate project file
@@ -17,7 +20,7 @@ if ( -f $projectFile ) then
 else
     echo "INFO: generating project file ..."
     echo "qmake -project ${sourceFileName} -o $projectFile $options"
-    qmake -project ${sourceFileName} -o $projectFile $options
+    qmake -project -o $projectFile $options
 endif
 
 #generate new linux project-file/Makefile
